@@ -6,7 +6,8 @@ sudo yum install -y make bzip2 gcc kernel-devel kernel-headers
 case "$PACKER_BUILDER_TYPE" in
 
 virtualbox-iso|virtualbox-ovf)
-    mount -o loop /home/vagrant/VBoxGuestAdditions.iso /mnt
+    VERSION=$(cat /home/vagrant/.vbox_version)
+    mount -o loop /home/vagrant/VBoxGuestAdditions_${VERSION}.iso /mnt
     sh /mnt/VBoxLinuxAdditions.run
     umount /mnt
     ;;
