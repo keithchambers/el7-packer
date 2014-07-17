@@ -28,7 +28,7 @@
       ],
       "http_directory": ".",
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
+        "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
       ],
       "boot_wait": "10s",
       "disk_size": 40960,
@@ -52,7 +52,7 @@
       },
       "http_directory": ".",
       "boot_command": [
-        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
+        "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
       ],
       "boot_wait": "10s",
       "disk_size": 40960,
