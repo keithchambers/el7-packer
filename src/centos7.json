@@ -2,7 +2,7 @@
   "builders": [
     {
       "type": "virtualbox-iso",
-      "vm_name": "centos-7-x86_64",
+      "vm_name": "centos7",
       "guest_os_type": "RedHat_64",
       "iso_checksum_type": "md5",
       "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
@@ -28,7 +28,7 @@
       ],
       "http_directory": ".",
       "boot_command": [
-        "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
+        "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/src/ks.cfg<enter>"
       ],
       "boot_wait": "10s",
       "disk_size": 40960,
@@ -36,7 +36,7 @@
     },
     {
       "type": "vmware-iso",
-      "vm_name": "centos-7-x86_64",
+      "vm_name": "centos7",
       "guest_os_type": "redhat-64",
       "iso_checksum_type": "md5",
       "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
@@ -47,25 +47,25 @@
       "tools_upload_flavor": "linux",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
-        "memsize": "480",
-        "numvcpus": "1"
+        "memsize": "1024",
+        "numvcpus": "2"
       },
       "http_directory": ".",
       "boot_command": [
-        "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"
+        "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/src/ks.cfg<enter>"
       ],
       "boot_wait": "10s",
       "disk_size": 40960,
-      "shutdown_command": "echo 'vagrant'|sudo -S /sbin/halt -h -p"
+      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p"
     }
   ],
   "provisioners": [
     {
       "type": "shell",
       "scripts": [
-        "vagrant.sh",
-        "vmtools.sh",
-        "cleanup.sh"
+        "src/scripts/vagrant.sh",
+        "src/scripts/vmtools.sh",
+        "src/scripts/clean.sh"
       ],
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
     }
@@ -74,7 +74,7 @@
     {
       "type": "vagrant",
       "compression_level": 9,
-      "output": "centos-7-x86_64.box"
+      "output": "centos7_{{.Provider}}.box"
     }
   ]
 }

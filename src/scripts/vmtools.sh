@@ -1,11 +1,23 @@
 #!/bin/bash -eux
 
-# install linux kernel headers
-sudo yum install -y make bzip2 gcc kernel-devel kernel-headers
+function install-kernel-headers()
+{
+    rpm -qa > rpms-before
+    yum install -y make bzip2 gcc kernel-devel kernel-headers
+    rpm -qa > rpms-after
+}
 
-case "$PACKER_BUILDER_TYPE" in
+function remove-kernel-headers()
+{
+    yum -y remove $(join -v 2 <(sort rpms-before) <(sort rpms-after))
+    yum -y clean all
+    rm -f rpms-before rpms-after
+}
+
+case "${PACKER_BUILDER_TYPE}" in
 
 virtualbox-iso|virtualbox-ovf)
+    install-kernel-headers
     VERSION=$(cat /home/vagrant/.vbox_version)
     mount -o loop /home/vagrant/VBoxGuestAdditions_${VERSION}.iso /mnt
     sh /mnt/VBoxLinuxAdditions.run
@@ -13,7 +25,8 @@ virtualbox-iso|virtualbox-ovf)
     ;;
 
 vmware-iso|vmware-vmx) 
-    sudo yum install -y perl nfs-utils
+    yum install -y perl nfs-utils
+    install-kernel-headers
     mkdir /mnt/vmfusion
     mkdir /mnt/vmfusion-archive
     mount -o loop /home/vagrant/linux.iso /mnt/vmfusion
@@ -25,15 +38,15 @@ vmware-iso|vmware-vmx)
     ;;
 
 *)
-    echo "Unknown Packer Builder Type >>$PACKER_BUILDER_TYPE<< selected."
+    echo "Unknown Packer Builder Type >>${PACKER_BUILDER_TYPE}<< selected."
     echo "Known are virtualbox-iso|virtualbox-ovf|vmware-iso|vmware-ovf."
     ;;
 
 esac
 
-# remove linux kernel headers
-yum -y remove gcc kernel-devel kernel-headers
-yum -y clean all
+
+# remove extra rpms
+remove-kernel-headers
 
 # remove virtualbox specific files
 rm -rf *.iso /tmp/vbox /home/vagrant/.vbox_version
