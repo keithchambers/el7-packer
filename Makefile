@@ -7,6 +7,6 @@ install:
 	vagrant box add centos7_virtualbox.box --name centos7 --provider=virtualbox
 
 clean:
-        rm -f centos7_virtualbox.box
+	rm -f centos7_virtualbox.box
 	rm -rf packer_cache
 	rm -rf output-virtualbox-iso
