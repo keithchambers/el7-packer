@@ -2,7 +2,7 @@
 set -ex
 
 # rpm -Va reports / and /var/run/wpa_supplicant as modified
-yum reinstall wpa_supplicant filesystems --assumeyes 
+yum reinstall wpa_supplicant filesystem --assumeyes 
 yum clean all
 
 # clean up log files
