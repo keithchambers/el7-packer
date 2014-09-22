@@ -14,7 +14,7 @@ function remove-kernel-headers()
     rm -f rpms-before rpms-after
 }
 
-case "${PACKER_BUILDER_TYPE}" in
+case ${PACKER_BUILDER_TYPE} in
 
 virtualbox-iso|virtualbox-ovf)
     install-kernel-headers
