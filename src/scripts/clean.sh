@@ -1,14 +1,10 @@
 #!/bin/bash
 set -x
 
-# rpm -Va reports / and /var/run/wpa_supplicant as modified
-yum reinstall wpa_supplicant filesystem --assumeyes 
 yum clean all
 
-# clean up log files
 find /var/log -type f -delete
 
-# remove under tmp directory
 rm -rf /tmp/*
 
 # clean up interface persistence
