@@ -1,4 +1,9 @@
-#!/bin/bash -eux
+#!/bin/bash
+set -e
+
+# 'rpm -Va' reports '/' and '/var/run/wpa_supplicant' as modified
+yum reinstall wpa_supplicant filesystems --assumeyes 
+yum clean all
 
 # clean up log files
 find /var/log -type f -delete
@@ -13,3 +18,5 @@ rm -f /etc/udev/rules.d/70-persistent-net.rules
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -rf /EMPTY
 sync
+
+# EOF

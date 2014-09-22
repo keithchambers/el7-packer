@@ -1,16 +1,16 @@
-#!/bin/bash -eux
+#!/bin/bash
+set -e
 
 function install-kernel-headers()
 {
     rpm -qa > rpms-before
-    yum install -y make bzip2 gcc kernel-devel kernel-headers
+    yum install make bzip2 gcc kernel-devel kernel-headers --assumeyes
     rpm -qa > rpms-after
 }
 
 function remove-kernel-headers()
 {
-    yum -y remove $(join -v 2 <(sort rpms-before) <(sort rpms-after))
-    yum -y clean all
+    yum remove $(join -v 2 <(sort rpms-before) <(sort rpms-after)) --assumeyes
     rm -f rpms-before rpms-after
 }
 
@@ -23,7 +23,7 @@ case "${PACKER_BUILDER_TYPE}" in
         umount /mnt
         ;;
     vmware-iso|vmware-vmx) 
-        yum install -y perl nfs-utils
+        yum install perl nfs-utils --assumeyes
         install-kernel-headers
         mkdir /mnt/vmfusion
         mkdir /mnt/vmfusion-archive
