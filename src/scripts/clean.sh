@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -x
 
 # rpm -Va reports / and /var/run/wpa_supplicant as modified
 yum reinstall wpa_supplicant filesystem --assumeyes 
