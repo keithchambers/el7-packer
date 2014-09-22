@@ -35,7 +35,7 @@ case "${PACKER_BUILDER_TYPE}" in
         rm -rf /mnt/vmfusion-archive
         ;;
     *)
-        echo "Unknown Packer Builder Type ${PACKER_BUILDER_TYPE} selected."
+        echo "Error: unknown Packer builder type ${PACKER_BUILDER_TYPE}."
         echo "Known are virtualbox-iso|virtualbox-ovf|vmware-iso|vmware-ovf."
         exit 1
         ;;
