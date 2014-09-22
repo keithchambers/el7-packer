@@ -1,7 +1,7 @@
 #!/bin/bash
-set -e
+set -ex
 
-# 'rpm -Va' reports '/' and '/var/run/wpa_supplicant' as modified
+# rpm -Va reports / and /var/run/wpa_supplicant as modified
 yum reinstall wpa_supplicant filesystems --assumeyes 
 yum clean all
 

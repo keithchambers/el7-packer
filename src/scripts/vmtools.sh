@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 function install-kernel-headers()
 {
@@ -40,7 +40,6 @@ case "${PACKER_BUILDER_TYPE}" in
         exit 1
         ;;
 esac
-
 
 # remove extra rpms
 remove-kernel-headers

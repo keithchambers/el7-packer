@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -ex
 
 # setup vagrant insecure public key
 
