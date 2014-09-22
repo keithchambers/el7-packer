@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -x
 
 function install-kernel-headers()
 {
