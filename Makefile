@@ -1,4 +1,4 @@
-all: build install clean
+all: build
 
 build:
 	packer build -force -only=virtualbox-iso ./src/centos7.json
