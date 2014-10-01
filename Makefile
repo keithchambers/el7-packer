@@ -1,12 +1,11 @@
 all: build
 
 build:
-	packer build -force -only=virtualbox-iso ./src/centos7.json
+	packer build -force ./src/centos7.json
 
 install:
-	vagrant box add centos7_virtualbox.box --name centos7 --provider=virtualbox
+	vagrant box add centos7-virtualbox.box --name centos7
 
 clean:
-	rm -f centos7_virtualbox.box
-	rm -rf packer_cache
+	rm -f centos7-virtualbox.box
 	rm -rf output-virtualbox-iso

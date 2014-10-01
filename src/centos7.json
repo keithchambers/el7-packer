@@ -1,80 +1,32 @@
 {
-  "builders": [
-    {
-      "type": "virtualbox-iso",
-      "vm_name": "centos7",
-      "guest_os_type": "RedHat_64",
-      "iso_checksum_type": "md5",
-      "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
-      "iso_url": "https://mirrors.kernel.org/centos/7/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
-      "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+  "builders": [{
+      "name":                    "centos7",
+      "type":                    "virtualbox-iso",
+      "guest_additions_path":    "VBoxGuestAdditions_{{.Version}}.iso",
       "virtualbox_version_file": ".vbox_version",
-      "ssh_password": "vagrant",
-      "ssh_username": "vagrant",
-      "ssh_wait_timeout": "10000s",
-      "vboxmanage": [
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--memory",
-          "1024"
-        ],
-        [
-          "modifyvm",
-          "{{.Name}}",
-          "--cpus",
-          "2"
-        ]
-      ],
-      "http_directory": ".",
-      "boot_command": [
-        "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/src/ks.cfg<enter>"
-      ],
-      "boot_wait": "10s",
-      "disk_size": 40960,
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p"
-    },
-    {
-      "type": "vmware-iso",
-      "vm_name": "centos7",
-      "guest_os_type": "redhat-64",
-      "iso_checksum_type": "md5",
-      "iso_checksum": "96de4f38a2f07da51831153549c8bd0c",
-      "iso_url": "https://mirrors.kernel.org/centos/7/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
-      "ssh_password": "vagrant",
-      "ssh_username": "vagrant",
-      "ssh_wait_timeout": "10000s",
-      "tools_upload_flavor": "linux",
-      "vmx_data": {
-        "cpuid.coresPerSocket": "1",
-        "memsize": "1024",
-        "numvcpus": "2"
-      },
-      "http_directory": ".",
-      "boot_command": [
-        "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/src/ks.cfg<enter>"
-      ],
-      "boot_wait": "10s",
-      "disk_size": 40960,
-      "shutdown_command": "echo 'vagrant' | sudo -S /sbin/halt -h -p"
-    }
-  ],
-  "provisioners": [
-    {
-      "type": "shell",
-      "scripts": [
-        "src/scripts/vagrant.sh",
-        "src/scripts/vmtools.sh",
-        "src/scripts/clean.sh"
-      ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'"
-    }
-  ],
-  "post-processors": [
-    {
-      "type": "vagrant",
-      "compression_level": 9,
-      "output": "centos7_{{.Provider}}.box"
-    }
-  ]
+      "guest_os_type":           "RedHat_64",
+      "iso_url":                 "https://mirrors.kernel.org/centos/7/isos/x86_64/CentOS-7.0-1406-x86_64-NetInstall.iso",
+      "iso_checksum":            "df6dfdd25ebf443ca3375188d0b4b7f92f4153dc910b17bccc886bd54a7b7c86",
+      "iso_checksum_type":       "sha256",
+      "ssh_username":            "root",
+      "ssh_password":            "root",
+      "ssh_wait_timeout":        "10000s",
+      "http_directory":          ".",
+      "boot_wait":               "10s",
+      "boot_command":            ["<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/src/ks.cfg<enter>"],
+      "shutdown_command":        "/sbin/halt -h -p",
+      "disk_size":               20480,
+      "vboxmanage":              [["modifyvm", "{{.Name}}", "--memory", "1024"]]
+  }],
+  "provisioners": [{
+      "type":                    "shell",
+      "scripts":                 ["src/scripts/vagrant.sh","src/scripts/virtualbox-guest-additions.sh","src/scripts/clean.sh"],
+      "execute_command":         "bash '{{.Path}}'"
+  }],
+  "post-processors": [{
+      "type":                    "vagrant",
+      "output":                  "centos7-{{.Provider}}.box",
+      "compression_level":       9,
+      "keep_input_artifact":     false
+  }]
 }
