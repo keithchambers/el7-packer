@@ -14,6 +14,6 @@ umount /mnt
 
 # clean up
 rm -f .vbox_version && rm -f VBoxGuestAdditions_${VERSION}.iso
-yum remove $(join -v 2 <(sort ${HOME}/rpms-before) <(sort ${HOME}/rpms-after)) --assumeyes
+yum remove $(join -v 2 <(sort rpms-before) <(sort rpms-after)) --assumeyes
 
 # EOF
