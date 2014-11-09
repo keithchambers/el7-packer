@@ -1,6 +1,6 @@
 {
     "builders": [{
-        "name":                    "centos7",
+        "name":                    "CentOS-7-x86_64",
         "type":                    "virtualbox-iso",
         "guest_additions_path":    "VBoxGuestAdditions_{{.Version}}.iso",
         "virtualbox_version_file": ".vbox_version",
@@ -25,7 +25,7 @@
     }],
     "post-processors": [{
         "type":                    "vagrant",
-        "output":                  "centos7-{{.Provider}}.box",
+        "output":                  "CentOS-7-x86_64-{{.Provider}}.box",
         "compression_level":       9,
         "keep_input_artifact":     false
     }]
