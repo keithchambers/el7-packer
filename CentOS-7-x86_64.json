@@ -11,9 +11,9 @@
         "ssh_username":            "root",
         "ssh_password":            "root",
         "ssh_wait_timeout":        "10000s",
-        "http_directory":          ".",
+        "http_directory":          "kickstarts",
         "boot_wait":               "10s",
-        "boot_command": [          "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstarts/ks.cfg<enter>"],
+        "boot_command": [          "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"],
         "shutdown_command":        "/sbin/halt -h -p",
         "disk_size":               20480,
         "vboxmanage":              [["modifyvm", "{{.Name}}", "--memory", "1024"]]
