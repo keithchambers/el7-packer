@@ -20,7 +20,7 @@
     }],
     "provisioners": [{
         "type":                    "shell",
-        "scripts":                 ["src/scripts/vagrant.sh","src/scripts/virtualbox-guest-additions.sh","src/scripts/clean.sh"],
+        "scripts": [               "src/scripts/vagrant.sh","src/scripts/virtualbox-guest-additions.sh","src/scripts/clean.sh"],
         "execute_command":         "bash '{{.Path}}'"
     }],
     "post-processors": [{
