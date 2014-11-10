@@ -1,7 +1,7 @@
 all: build
 
 build:
-	packer build -force ./src/CentOS-7-x86_64.json
+	packer build -force CentOS-7-x86_64.json
 
 install:
 	vagrant box add CentOS-7-x86_64-virtualbox.box --name CentOS-7-x86_64

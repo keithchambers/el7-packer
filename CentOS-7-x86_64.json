@@ -13,7 +13,7 @@
         "ssh_wait_timeout":        "10000s",
         "http_directory":          ".",
         "boot_wait":               "10s",
-        "boot_command": [          "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/src/ks.cfg<enter>"],
+        "boot_command": [          "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/kickstarts/ks.cfg<enter>"],
         "shutdown_command":        "/sbin/halt -h -p",
         "disk_size":               20480,
         "vboxmanage":              [["modifyvm", "{{.Name}}", "--memory", "1024"]]
@@ -21,9 +21,9 @@
     "provisioners": [{
         "type":                    "shell",
         "execute_command":         "bash '{{.Path}}'",
-        "scripts": [               "src/scripts/vagrant.sh",
-                                   "src/scripts/virtualbox-guest-additions.sh",
-                                   "src/scripts/clean.sh"]
+        "scripts": [               "scripts/vagrant.sh",
+                                   "scripts/virtualbox-guest-additions.sh",
+                                   "scripts/clean.sh"]
     }],
     "post-processors": [{
         "type":                    "vagrant",
