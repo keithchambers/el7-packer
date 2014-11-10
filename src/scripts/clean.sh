@@ -11,7 +11,7 @@ find /var/log -type f -delete
 rm -rf /tmp/*
 
 # delete files in home
-rm -rf ${HOME}/*
+rm -rf $HOME/*
 
 # delete interface persistence
 rm -f /etc/udev/rules.d/70-persistent-net.rules
