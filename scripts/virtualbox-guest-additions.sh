@@ -1,9 +1,8 @@
-#!/bin/bash
-set -x
+#!/bin/bash -x
 
 # install dependencies
 rpm -qa > rpms-before
-yum install make bzip2 gcc kernel-devel kernel-headers --assumeyes
+yum install -y make bzip2 gcc kernel-devel kernel-headers
 rpm -qa > rpms-after
 
 # install virtualbox guest additions
@@ -14,6 +13,6 @@ umount /mnt
 
 # clean up
 rm -f .vbox_version && rm -f VBoxGuestAdditions_${VERSION}.iso
-yum remove $(join -v 2 <(sort rpms-before) <(sort rpms-after)) --assumeyes
+yum remove -y $(join -v 2 <(sort rpms-before) <(sort rpms-after))
 
 # EOF
