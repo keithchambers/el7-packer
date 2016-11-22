@@ -1,5 +1,4 @@
-#!/bin/bash
-set -x
+#!/bin/bash -x
 
 # delete interface persistence
 rm -f /etc/udev/rules.d/70-persistent-net.rules
@@ -23,5 +22,6 @@ find /var/log -type f -delete
 # zero out empty space
 dd if=/dev/zero of=/ZERO bs=1M
 rm -rf /ZERO
+sync
 
 # EOF
