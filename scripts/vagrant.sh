@@ -1,5 +1,4 @@
-#!/bin/sh
-set -ex
+#!/bin/sh -ex
 
 # setup vagrant user
 groupadd vagrant
