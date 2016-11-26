@@ -1,5 +1,8 @@
 #!/bin/bash -x
 
+# remove rpms
+yum remove -y dmidecode irqbalance man-db microcode_ctl numactl-libs tuned virt-what  
+
 # delete locales
 localedef --list-archive | grep -a -v "en_US" | xargs localedef --delete-from-archive
 cp /usr/lib/locale/locale-archive /usr/lib/locale/locale-archive.tmpl
