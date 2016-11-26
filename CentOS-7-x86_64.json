@@ -12,18 +12,24 @@
         "ssh_password":            "root",
         "ssh_wait_timeout":        "10000s",
         "http_directory":          "kickstarts",
-        "boot_wait":               "10s",
+        "boot_wait":               "5s",
         "boot_command": [          "<up><tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg<enter>"],
         "shutdown_command":        "/sbin/halt -h -p",
         "disk_size":               20480,
-        "vboxmanage":              [["modifyvm", "{{.Name}}", "--memory", "1024"]]
+        "vboxmanage": [
+                                   ["modifyvm", "{{.Name}}", "--cpus", "2"],
+                                   ["modifyvm", "{{.Name}}", "--memory", "2048"]
+        ]
     }],
     "provisioners": [{
         "type":                    "shell",
         "execute_command":         "bash '{{.Path}}'",
-        "scripts": [               "scripts/vagrant.sh",
-                                   "scripts/virtualbox-guest-additions.sh",
-                                   "scripts/clean.sh"]
+        "scripts": [
+                                   "scripts/vagrant.sh",
+                                   "scripts/virtualbox.sh",
+                                   "scripts/minimize.sh",
+                                   "scripts/clean.sh"
+        ]
     }],
     "post-processors": [{
         "type":                    "vagrant",

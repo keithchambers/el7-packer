@@ -1,4 +1,7 @@
-#!/bin/bash -ex
+#!/bin/bash -x
+
+# configure ssh
+echo UseDNS no >> /etc/ssh/sshd_config
 
 # setup vagrant user
 groupadd vagrant
