@@ -13,6 +13,7 @@ umount /mnt
 # clean up
 RPMS_POST=$(rpm -qa --qf "%{NAME}\n" | sort)
 yum remove -y $(join -v 2 <(echo "${RPMS_PRE}") <(echo "${RPMS_POST}"))
-rm -f .vbox_version && rm -f "VBoxGuestAdditions_${VERSION}.iso"
+rm -f .vbox_version
+rm -f "VBoxGuestAdditions_${VERSION}.iso"
 
 # EOF
