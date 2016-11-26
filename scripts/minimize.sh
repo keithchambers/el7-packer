@@ -1,7 +1,7 @@
 #!/bin/bash -x
 
 # remove rpms
-yum remove -y dmidecode irqbalance man-db microcode_ctl numactl-libs selinux-policy tuned virt-what  
+yum remove -y dmidecode hwdata irqbalance man-db microcode_ctl numactl-libs selinux-policy tuned virt-what  
 
 # delete locales
 localedef --list-archive | grep -a -v "en_US" | xargs localedef --delete-from-archive
@@ -20,7 +20,7 @@ mv /tmp/en_US /usr/share/i18n/locales
 find /usr/lib64/gconv/ -type f ! -name "UTF*" -delete
 
 # delete docs
-find /usr/share/{man,doc,info,gnome,kde4,backgrounds} -type f -delete
+find /usr/share/{anaconda,backgrounds,doc,gnome,icons,info,kde4,man,pixmaps,plymouth} -type f -delete
 
 # delete cracklib
 find /usr/share/cracklib -type f -delete
